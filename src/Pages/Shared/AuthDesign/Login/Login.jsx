@@ -3,11 +3,16 @@ import "./Login.css";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 import { useState } from "react";
 import Google from "../Social/Google";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const [show, setShow] = useState(false);
   return (
     <div>
+      <Helmet>
+        <title>Photography School | Login</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div className="hero min-h-screen px-28 loginImg">
         <div className="hero-content flex lg:flex shadow-xl border-2 border-base-300 p-10">
           <div className="text-center w-1/2">

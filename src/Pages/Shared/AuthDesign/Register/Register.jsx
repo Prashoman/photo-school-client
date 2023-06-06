@@ -1,14 +1,34 @@
 import { Link } from "react-router-dom";
 import "../Login/Login.css";
 import { HiEyeOff, HiEye } from "react-icons/hi";
+import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Google from "../Social/Google";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const [show, setShow] = useState(false);
   const [cshow, setCshow] = useState(false);
+  const [pmachtError, setPmatchErorr] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+    setPmatchErorr("");
+    if (data.password !== data.confirmPassword) {
+      return setPmatchErorr("Password and confirm password do not match");
+    }
+  };
   return (
     <div>
+      <Helmet>
+        <title>Photography School | Register</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div className="hero min-h-screen px-28 loginImg">
         <div className="hero-content flex lg:flex shadow-xl border-2 border-base-300 p-10">
           <div className="text-center w-1/2">
@@ -27,39 +47,62 @@ const Register = () => {
                   Please Register First
                 </h1>
               </div>
-              <form className="card-body">
+              <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Name</span>
                   </label>
                   <input
+                    {...register("name", { required: "Name is required" })}
                     name="name"
                     type="text"
                     placeholder="name"
                     className="input input-bordered"
                   />
                 </div>
+                {errors.name && (
+                  <p className="text-red-500">{errors.name.message}</p>
+                )}
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Email</span>
                   </label>
                   <input
+                    {...register("email", { required: "Email is required" })}
                     name="email"
                     type="email"
                     placeholder="email"
                     className="input input-bordered"
                   />
                 </div>
+                {errors.email && (
+                  <p className="text-red-500">{errors.email.message}</p>
+                )}
                 <div className="form-control relative">
                   <label className="label">
                     <span className="label-text">Password</span>
                   </label>
                   <input
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: {
+                        value: 6,
+                        message: "Password should have at least 6 characters",
+                      },
+                      pattern: {
+                        value: /^(?=.*[A-Z])(?=.*[!@#$&*]).{6,}$/,
+                        message:
+                          "Password should, one capital letter, and one special character",
+                      },
+                    })}
                     name="password"
                     type={`${show ? "text" : "password"}`}
                     placeholder="password"
                     className="input input-bordered"
                   />
+                  {errors.password && (
+                    <p className="text-red-500">{errors.password.message}</p>
+                  )}
                   <div
                     onClick={() => setShow(!show)}
                     className="absolute top-14 cursor-pointer right-5"
@@ -72,7 +115,8 @@ const Register = () => {
                     <span className="label-text">Confirm Password</span>
                   </label>
                   <input
-                    name="cpassword"
+                    {...register("confirmPassword")}
+                    name="confirmPassword"
                     type={`${cshow ? "text" : "password"}`}
                     placeholder="Confirm password"
                     className="input input-bordered"
@@ -84,50 +128,22 @@ const Register = () => {
                     {cshow ? <HiEye></HiEye> : <HiEyeOff></HiEyeOff>}
                   </div>
                 </div>
+                {pmachtError && <p className="text-red-500"> {pmachtError}</p>}
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Photo Url</span>
                   </label>
                   <input
+                    {...register("photo", { required: "Email is required" })}
                     name="photo"
                     type="url"
                     placeholder="photo url"
                     className="input input-bordered"
                   />
                 </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Gender</span>
-                  </label>
-                  <select name="gender" className="select select-bordered">
-                    <option disabled selected>
-                      Pick one
-                    </option>
-                    <option>Male</option>
-                    <option>Female</option>
-                  </select>
-                </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Phone</span>
-                  </label>
-                  <input
-                    name="phone"
-                    type="text"
-                    placeholder="phone number"
-                    className="input input-bordered"
-                  />
-                </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Address</span>
-                  </label>
-                  <textarea
-                    name="address"
-                    className="textarea textarea-bordered h-24"
-                    placeholder="address"
-                  ></textarea>
-                </div>
+                {errors.photo && (
+                  <p className="text-red-500">{errors.photo.message}</p>
+                )}
 
                 <label htmlFor="">
                   <h1>
