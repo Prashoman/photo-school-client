@@ -2,6 +2,8 @@ import { FaGoogle } from "react-icons/fa";
 import useAuth from "../../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import moment from "moment";
 
 const Google = () => {
   const { loginWithGoogle } = useAuth();
@@ -10,16 +12,26 @@ const Google = () => {
     loginWithGoogle()
       .then((result) => {
         console.log(result.user);
-        Swal.fire({
-          title: "User Login Successfully.",
-          showClass: {
-            popup: "animate__animated animate__fadeInDown",
-          },
-          hideClass: {
-            popup: "animate__animated animate__fadeOutUp",
-          },
+        const data = result.user;
+        const userInfo = {
+          name: data.displayName,
+          email: data.email,
+          role: "student",
+          created_at: moment().format("MMMM Do YYYY, h:mm:ss a"),
+        };
+        axios.post("http://localhost:5000/users", { userInfo }).then((res) => {
+          Swal.fire({
+            title: "User Login Successfully.",
+            showClass: {
+              popup: "animate__animated animate__fadeInDown",
+            },
+            hideClass: {
+              popup: "animate__animated animate__fadeOutUp",
+            },
+          });
+
+          navigate("/");
         });
-        navigate("/");
       })
       .catch((error) => {
         console.log(error);
