@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const ManageUser = () => {
@@ -8,7 +9,7 @@ const ManageUser = () => {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
-      console.log(res.data);
+      //console.log(res.data);
       return res.data;
     },
   });
@@ -20,7 +21,7 @@ const ManageUser = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         if (data.modifiedCount) {
           refetch();
           Swal.fire({
@@ -41,7 +42,7 @@ const ManageUser = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         if (data.modifiedCount) {
           refetch();
           Swal.fire({
@@ -53,6 +54,38 @@ const ManageUser = () => {
           });
         }
       });
+  };
+
+  const handleDelete = (user) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //   Swal.fire(
+        //     'Deleted!',
+        //     'Your file has been deleted.',
+        //     'success'
+        //   )
+
+        fetch(`http://localhost:5000/user/${user?._id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            // console.log(data);
+            if (data.deletedCount > 0) {
+              refetch();
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            }
+          });
+      }
+    });
   };
   return (
     <div className="w-full h-full px-8">
@@ -93,7 +126,12 @@ const ManageUser = () => {
                     </button>
                   </td>
                   <td>
-                    <button className="btn btn-sm btn-info">deleted</button>
+                    <button
+                      onClick={() => handleDelete(user)}
+                      className="btn btn-sm bg-red-500 text-white"
+                    >
+                      <FaRegTrashAlt></FaRegTrashAlt>
+                    </button>
                   </td>
                 </tr>
               ))}
