@@ -1,13 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 import { useState } from "react";
 import Google from "../Social/Google";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
+import useAuth from "../../../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
+  const { userLogin } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -16,7 +21,30 @@ const Login = () => {
   } = useForm();
 
   const handleLogin = (data) => {
-    console.log(data);
+    // console.log(data);
+    setError("");
+    userLogin(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        Swal.fire({
+          title: "User Login Successfully.",
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+        });
+        reset();
+        navigate("/");
+      })
+      .catch((error) => {
+        //console.log(error.message);
+        if (error.message) {
+          setError(error.message);
+        }
+      });
   };
   return (
     <div>
@@ -40,6 +68,9 @@ const Login = () => {
               <div className="text-center mt-5">
                 <h1 className="text-3xl font-sans font-bold">Login please</h1>
               </div>
+              {error && (
+                <p className="text-red-500 text-center mt-5"> {error}</p>
+              )}
               <form onSubmit={handleSubmit(handleLogin)} className="card-body">
                 <div className="form-control">
                   <label className="label">
