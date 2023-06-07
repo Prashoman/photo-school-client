@@ -1,27 +1,64 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../Login/Login.css";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Google from "../Social/Google";
 import { Helmet } from "react-helmet";
+import useAuth from "../../../../Hooks/useAuth";
+import { updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const Register = () => {
+  const { userRegister } = useAuth();
   const [show, setShow] = useState(false);
   const [cshow, setCshow] = useState(false);
   const [pmachtError, setPmatchErorr] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+
+  //handleSubmit
+  const handleRegister = (data) => {
     setPmatchErorr("");
+    setError("");
     if (data.password !== data.confirmPassword) {
       return setPmatchErorr("Password and confirm password do not match");
     }
+
+    userRegister(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        user.displayName = data.name;
+        user.photoURL = data.photo;
+        updateProfile(user, {
+          displayName: data.name,
+          photoURL: data.photo,
+        });
+        Swal.fire({
+          title: "User Login Successfully.",
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+        });
+        reset();
+        navigate("/");
+      })
+      .catch((error) => {
+        //console.log(error.message);
+        if (error.message) {
+          setError("Auth Email Already in use.");
+        }
+      });
   };
   return (
     <div>
@@ -47,7 +84,13 @@ const Register = () => {
                   Please Register First
                 </h1>
               </div>
-              <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+              {error && (
+                <p className="text-red-500 text-center mt-3">{error}</p>
+              )}
+              <form
+                onSubmit={handleSubmit(handleRegister)}
+                className="card-body"
+              >
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Name</span>
@@ -134,7 +177,7 @@ const Register = () => {
                     <span className="label-text">Photo Url</span>
                   </label>
                   <input
-                    {...register("photo", { required: "Email is required" })}
+                    {...register("photo", { required: "Photo is required" })}
                     name="photo"
                     type="url"
                     placeholder="photo url"

@@ -4,9 +4,20 @@ import { HiEyeOff, HiEye } from "react-icons/hi";
 import { useState } from "react";
 import Google from "../Social/Google";
 import { Helmet } from "react-helmet";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
   const [show, setShow] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const handleLogin = (data) => {
+    console.log(data);
+  };
   return (
     <div>
       <Helmet>
@@ -29,23 +40,32 @@ const Login = () => {
               <div className="text-center mt-5">
                 <h1 className="text-3xl font-sans font-bold">Login please</h1>
               </div>
-              <form className="card-body">
+              <form onSubmit={handleSubmit(handleLogin)} className="card-body">
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Email</span>
                   </label>
                   <input
-                    type="text"
+                    {...register("email", { required: "email is required" })}
+                    name="email"
+                    type="email"
                     placeholder="email"
                     className="input input-bordered"
                   />
                 </div>
+                {errors.email && (
+                  <p className="text-red-500">{errors.email.message}</p>
+                )}
                 <div className="form-control relative">
                   <label className="label">
                     <span className="label-text">Password</span>
                   </label>
                   <input
+                    {...register("password", {
+                      required: "password is required",
+                    })}
                     type={`${show ? "text" : "password"}`}
+                    name="password"
                     placeholder="password"
                     className="input input-bordered"
                   />
@@ -61,6 +81,9 @@ const Login = () => {
                     </a>
                   </label>
                 </div>
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
                 <label htmlFor="">
                   <h1>
                     You have an new?Please{" "}
