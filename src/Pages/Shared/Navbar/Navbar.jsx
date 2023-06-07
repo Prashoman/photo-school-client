@@ -1,6 +1,18 @@
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
 
 const Navbar = () => {
+  const { user, userLogeOut } = useAuth();
+
+  const handleLogOut = () => {
+    userLogeOut()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const items = (
     <>
       <li>
@@ -27,14 +39,16 @@ const Navbar = () => {
           Classes
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/classes"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          Dashboard
-        </NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink
+            to="/classes"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
@@ -78,9 +92,30 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{items}</ul>
       </div>
       <div className="navbar-end">
-        <Link to="/login" className="btn btn-sm btn-secondary">
-          Login
-        </Link>
+        {user ? (
+          <>
+            {user?.photoURL && (
+              <div className="avatar">
+                <div className="w-9 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <img src={user?.photoURL} />
+                </div>
+              </div>
+            )}
+            <button
+              onClick={handleLogOut}
+              className="ms-3 btn btn-sm btn-secondary"
+            >
+              LogOut
+            </button>{" "}
+          </>
+        ) : (
+          <>
+            {" "}
+            <Link to="/login" className="btn btn-sm btn-secondary">
+              Login
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

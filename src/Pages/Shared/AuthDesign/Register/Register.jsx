@@ -8,6 +8,8 @@ import { Helmet } from "react-helmet";
 import useAuth from "../../../../Hooks/useAuth";
 import { updateProfile } from "firebase/auth";
 import Swal from "sweetalert2";
+import axios from "axios";
+import moment from "moment/moment";
 
 const Register = () => {
   const { userRegister } = useAuth();
@@ -34,24 +36,36 @@ const Register = () => {
     userRegister(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        //console.log(user);
         user.displayName = data.name;
         user.photoURL = data.photo;
         updateProfile(user, {
           displayName: data.name,
           photoURL: data.photo,
         });
-        Swal.fire({
-          title: "User Login Successfully.",
-          showClass: {
-            popup: "animate__animated animate__fadeInDown",
-          },
-          hideClass: {
-            popup: "animate__animated animate__fadeOutUp",
-          },
+
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+          role: "student",
+          created_at: moment().format("MMMM Do YYYY, h:mm:ss a"),
+        };
+
+        axios.post("http://localhost:5000/users", { userInfo }).then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire({
+              title: "User Login Successfully.",
+              showClass: {
+                popup: "animate__animated animate__fadeInDown",
+              },
+              hideClass: {
+                popup: "animate__animated animate__fadeOutUp",
+              },
+            });
+            reset();
+            navigate("/");
+          }
         });
-        reset();
-        navigate("/");
       })
       .catch((error) => {
         //console.log(error.message);
@@ -96,19 +110,16 @@ const Register = () => {
                     <span className="label-text">Name</span>
                   </label>
                   <input
-                    {...register("name", { required: "Name is required" })}
+                    {...register("name")}
                     name="name"
                     type="text"
                     placeholder="name"
                     className="input input-bordered"
                   />
                 </div>
-                {errors.name && (
-                  <p className="text-red-500">{errors.name.message}</p>
-                )}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Email</span>
+                    <span className="label-text">Email*</span>
                   </label>
                   <input
                     {...register("email", { required: "Email is required" })}
@@ -123,7 +134,7 @@ const Register = () => {
                 )}
                 <div className="form-control relative">
                   <label className="label">
-                    <span className="label-text">Password</span>
+                    <span className="label-text">Password*</span>
                   </label>
                   <input
                     {...register("password", {
@@ -155,7 +166,7 @@ const Register = () => {
                 </div>
                 <div className="form-control relative">
                   <label className="label">
-                    <span className="label-text">Confirm Password</span>
+                    <span className="label-text">Confirm Password*</span>
                   </label>
                   <input
                     {...register("confirmPassword")}
@@ -177,16 +188,13 @@ const Register = () => {
                     <span className="label-text">Photo Url</span>
                   </label>
                   <input
-                    {...register("photo", { required: "Photo is required" })}
+                    {...register("photo")}
                     name="photo"
                     type="url"
                     placeholder="photo url"
                     className="input input-bordered"
                   />
                 </div>
-                {errors.photo && (
-                  <p className="text-red-500">{errors.photo.message}</p>
-                )}
 
                 <label htmlFor="">
                   <h1>
