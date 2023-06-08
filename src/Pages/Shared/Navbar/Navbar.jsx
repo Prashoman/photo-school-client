@@ -1,16 +1,17 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import useRole from "../../../Hooks/useRole";
 
 const Navbar = () => {
   const { user, userLogeOut } = useAuth();
+  const navigate = useNavigate();
   const [userRole] = useRole();
-  //console.log(userRole);
+  console.log(userRole);
 
   const handleLogOut = () => {
     userLogeOut()
       .then((result) => {
-        console.log(result);
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);

@@ -9,6 +9,9 @@ import ManageUser from "../Pages/Dashboard/AdminDashboard/ManageUser";
 import StudentHome from "../Pages/Dashboard/StudentDashboard/StudentHome";
 import InstructorHome from "../Pages/Dashboard/InstructorDashboard/InstructorHome";
 import AdminRoute from "./AdminRoute";
+import AdminHome from "../Pages/Dashboard/AdminDashboard/AdminHome";
+import StudentRoute from "./StudentRoute";
+import InstructorRoute from "./InstructorRoute";
 
 const router = createBrowserRouter([
   {
@@ -35,19 +38,31 @@ const router = createBrowserRouter([
     children: [
       {
         path: "student-home",
-        element: <StudentHome></StudentHome>,
+        element: (
+          <StudentRoute>
+            <StudentHome></StudentHome>
+          </StudentRoute>
+        ),
       },
 
       //instructor route
       {
         path: "instructor-home",
-        element: <InstructorHome></InstructorHome>,
+        element: (
+          <InstructorRoute>
+            <InstructorHome></InstructorHome>
+          </InstructorRoute>
+        ),
       },
 
       //admin route
       {
         path: "admin-home",
-        element: <InstructorHome></InstructorHome>,
+        element: (
+          <AdminRoute>
+            <AdminHome></AdminHome>
+          </AdminRoute>
+        ),
       },
       {
         path: "all-users",
