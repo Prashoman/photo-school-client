@@ -4,8 +4,11 @@ import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Shared/AuthDesign/Login/Login";
 import Register from "../Pages/Shared/AuthDesign/Register/Register";
 import Dashboard from "../Layouts/Dashboard";
-import StudentHome from "../Pages/StudenDashboard/StudentHome/StudentHome";
+
 import ManageUser from "../Pages/Dashboard/AdminDashboard/ManageUser";
+import StudentHome from "../Pages/Dashboard/StudentDashboard/StudentHome";
+import InstructorHome from "../Pages/Dashboard/InstructorDashboard/InstructorHome";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -31,12 +34,28 @@ const router = createBrowserRouter([
     element: <Dashboard></Dashboard>,
     children: [
       {
-        path: "home",
+        path: "student-home",
         element: <StudentHome></StudentHome>,
+      },
+
+      //instructor route
+      {
+        path: "instructor-home",
+        element: <InstructorHome></InstructorHome>,
+      },
+
+      //admin route
+      {
+        path: "admin-home",
+        element: <InstructorHome></InstructorHome>,
       },
       {
         path: "all-users",
-        element: <ManageUser></ManageUser>,
+        element: (
+          <AdminRoute>
+            <ManageUser></ManageUser>
+          </AdminRoute>
+        ),
       },
     ],
   },

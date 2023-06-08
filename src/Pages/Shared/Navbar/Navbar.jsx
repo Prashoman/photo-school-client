@@ -1,8 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
+import useRole from "../../../Hooks/useRole";
 
 const Navbar = () => {
   const { user, userLogeOut } = useAuth();
+  const [userRole] = useRole();
+  //console.log(userRole);
 
   const handleLogOut = () => {
     userLogeOut()
@@ -39,15 +42,44 @@ const Navbar = () => {
           Classes
         </NavLink>
       </li>
-      {user && (
-        <li>
-          <NavLink
-            to="/dashboard/home"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
-            Dashboard
-          </NavLink>
-        </li>
+      {user && userRole?.admin?.admin && (
+        <>
+          {" "}
+          <li>
+            <NavLink
+              to="/dashboard/admin-home"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Dashboard
+            </NavLink>
+          </li>
+        </>
+      )}
+      {user && userRole?.instructor?.instructor && (
+        <>
+          {" "}
+          <li>
+            <NavLink
+              to="/dashboard/instructor-home"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Dashboard
+            </NavLink>
+          </li>
+        </>
+      )}
+      {user && userRole?.student?.student && (
+        <>
+          {" "}
+          <li>
+            <NavLink
+              to="/dashboard/student-home"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Dashboard
+            </NavLink>
+          </li>
+        </>
       )}
     </>
   );
