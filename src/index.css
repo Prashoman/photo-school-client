@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.light-mode {
+  background-color: black;
+  color: white;
+}
