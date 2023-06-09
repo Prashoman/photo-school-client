@@ -13,6 +13,7 @@ import AdminHome from "../Pages/Dashboard/AdminDashboard/AdminHome";
 import StudentRoute from "./StudentRoute";
 import InstructorRoute from "./InstructorRoute";
 import AddClass from "../Pages/Dashboard/InstructorDashboard/AddClass";
+import MyAddedClass from "../Pages/Dashboard/InstructorDashboard/MyAddedClass";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
         element: (
           <InstructorRoute>
             <AddClass></AddClass>
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "my-class",
+        element: (
+          <InstructorRoute>
+            <MyAddedClass></MyAddedClass>
           </InstructorRoute>
         ),
       },

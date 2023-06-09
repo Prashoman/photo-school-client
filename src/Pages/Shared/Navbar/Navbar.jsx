@@ -6,7 +6,7 @@ const Navbar = () => {
   const { user, userLogeOut } = useAuth();
   const navigate = useNavigate();
   const [userRole] = useRole();
-  console.log(userRole);
+  //console.log(userRole);
 
   const handleLogOut = () => {
     userLogeOut()

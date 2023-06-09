@@ -14,7 +14,7 @@ import {
 
 const Dashboard = () => {
   const [userRole] = useRole();
-  console.log(userRole);
+  //console.log(userRole);
 
   return (
     <div>

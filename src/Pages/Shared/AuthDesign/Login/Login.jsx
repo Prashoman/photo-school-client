@@ -36,6 +36,7 @@ const Login = () => {
             popup: "animate__animated animate__fadeOutUp",
           },
         });
+
         reset();
         navigate("/");
       })
