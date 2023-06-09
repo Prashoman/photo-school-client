@@ -1,7 +1,10 @@
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import useAuth from "../../../Hooks/useAuth";
 
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyAddedClass = () => {
   const { user, loading } = useAuth();
@@ -21,6 +24,28 @@ const MyAddedClass = () => {
       return res.data;
     },
   });
+
+  const handleDelete = (item) => {
+    console.log("okg");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/class/${item?._id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          }
+        });
+      }
+    });
+  };
 
   return (
     <div className="w-full h-full px-5">
@@ -58,9 +83,18 @@ const MyAddedClass = () => {
                   <td>{item.enroll}</td>
                   <td>{item.status}</td>
                   <th>{item.feedback}</th>
-                  <th className="flex gap-1">
-                    <button>update</button>
-                    <button>delete</button>
+                  <th className="flex gap-2 items-center justify-center">
+                    <Link to={`/dashboard/class-update/${item._id}`}>
+                      <button className=" bg-blue-400 rounded-lg p-2 text-white hover:bg-blue-900">
+                        <FaEdit className="w-7 h-7"></FaEdit>
+                      </button>
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(item)}
+                      className=" bg-red-400 rounded-lg p-2 text-white hover:bg-red-900"
+                    >
+                      <FaTrashAlt className="w-7 h-7"></FaTrashAlt>
+                    </button>
                   </th>
                 </tr>
               ))}

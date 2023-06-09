@@ -7,7 +7,14 @@ const InstructorRoute = ({ children }) => {
   const [userRole, isLoading] = useRole();
 
   if (loading || isLoading) {
-    return <progress className="progress w-56"></progress>;
+    return (
+      <di>
+        <span className="loading loading-ring loading-xs"></span>
+        <span className="loading loading-ring loading-sm"></span>
+        <span className="loading loading-ring loading-md"></span>
+        <span className="loading loading-ring loading-lg"></span>
+      </di>
+    );
   }
 
   if (user && userRole?.instructor?.instructor) {

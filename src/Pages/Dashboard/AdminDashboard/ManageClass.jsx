@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ManageClass = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -20,10 +21,43 @@ const ManageClass = () => {
 
   const handleStatusApprove = (item) => {
     console.log("Approve", item._id);
+
+    fetch(`http://localhost:5000/status/approve/${item?._id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "This Class Approved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   const handleStatusDeny = (item) => {
     console.log("Denny", item._id);
+    fetch(`http://localhost:5000/status/deny/${item?._id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "This Class Deny",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
   return (
     <div className="w-full h-full px-8">
@@ -33,7 +67,7 @@ const ManageClass = () => {
       </div>
       <div>
         <div className="overflow-x-auto">
-          <table className="table table-xl">
+          <table className="table table-xl table-pin-rows table-pin-cols text-center">
             {/* head */}
             <thead>
               <tr>
@@ -65,12 +99,18 @@ const ManageClass = () => {
                   </td>
                   <td className="flex gap-1">
                     <button
+                      disabled={
+                        item.status === "approve" || item.status === "deny"
+                      }
                       onClick={() => handleStatusApprove(item)}
                       className="btn btn-sm btn-success"
                     >
                       Approve
                     </button>
                     <button
+                      disabled={
+                        item.status === "approve" || item.status === "deny"
+                      }
                       onClick={() => handleStatusDeny(item)}
                       className="btn btn-sm btn-success"
                     >
