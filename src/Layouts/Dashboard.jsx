@@ -42,7 +42,9 @@ const Dashboard = () => {
                 <li className="text-xl">
                   <NavLink
                     to="/dashboard/admin-home"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "bg-blue-300" : ""
+                    }
                   >
                     <FaHome></FaHome>
                     Admin Home
@@ -51,7 +53,9 @@ const Dashboard = () => {
                 <li className="text-xl">
                   <NavLink
                     to="/dashboard/manage-class"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "bg-blue-300" : ""
+                    }
                   >
                     <FaCheckDouble></FaCheckDouble>
                     Manage Classes
@@ -60,7 +64,9 @@ const Dashboard = () => {
                 <li className="text-xl">
                   <NavLink
                     to="/dashboard/all-users"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "bg-blue-300" : ""
+                    }
                   >
                     <FaUserEdit></FaUserEdit>
                     Manage Users
