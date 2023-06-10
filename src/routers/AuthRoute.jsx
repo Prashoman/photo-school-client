@@ -1,12 +1,10 @@
 import { Navigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
-import useRole from "../Hooks/useRole";
 
-const InstructorRoute = ({ children }) => {
+const AuthRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  const [userRole, isLoading] = useRole();
 
-  if (loading || isLoading) {
+  if (loading) {
     return (
       <div>
         <span className="loading loading-ring loading-xs"></span>
@@ -17,10 +15,10 @@ const InstructorRoute = ({ children }) => {
     );
   }
 
-  if (user && userRole?.instructor?.instructor) {
-    return children;
+  if (!user) {
+    return <Navigate to="/login"></Navigate>;
   }
-  return <Navigate to="/"></Navigate>;
+  return children;
 };
 
-export default InstructorRoute;
+export default AuthRoute;

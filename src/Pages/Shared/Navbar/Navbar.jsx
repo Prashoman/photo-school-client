@@ -1,9 +1,12 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import useRole from "../../../Hooks/useRole";
+import { FaShoppingCart } from "react-icons/fa";
+import useSelectedClass from "../../../Hooks/useSelectedClass";
 
 const Navbar = () => {
   const { user, userLogeOut } = useAuth();
+  const [selectClass] = useSelectedClass();
   const navigate = useNavigate();
   const [userRole] = useRole();
   //console.log(userRole);
@@ -42,6 +45,20 @@ const Navbar = () => {
         >
           Classes
         </NavLink>
+      </li>
+      <li>
+        {user && userRole?.student?.student && (
+          <>
+            <Link to="/dashboard/my-selected-class">
+              <p className="flex">
+                <FaShoppingCart className="w-6 h-4"></FaShoppingCart>
+                <div className="badge badge-secondary">
+                  +{selectClass?.length || 0}
+                </div>
+              </p>
+            </Link>
+          </>
+        )}
       </li>
       {user && userRole?.admin?.admin && (
         <>

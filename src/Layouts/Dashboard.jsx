@@ -118,7 +118,7 @@ const Dashboard = () => {
                 </li>
                 <li className="text-xl">
                   <NavLink
-                    to="/dashboard/home"
+                    to="/dashboard/my-selected-class"
                     className={({ isActive }) => (isActive ? "active" : "")}
                   >
                     <FaRegBookmark></FaRegBookmark>

@@ -19,6 +19,8 @@ import FeedBack from "../Pages/Dashboard/AdminDashboard/FeedBack";
 import ClassUpdate from "../Pages/Dashboard/InstructorDashboard/ClassUpdate";
 import AllInstructor from "../Pages/AllInstructor/AllInstructor";
 import AllClass from "../Pages/AllClass.jsx/AllClass";
+import MySelectedClass from "../Pages/Dashboard/StudentDashboard/MySelectedClass";
+import AuthRoute from "./AuthRoute";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,7 @@ const router = createBrowserRouter([
       {
         path: "/instructors",
         element: <AllInstructor></AllInstructor>,
+        loader: () => fetch("http://localhost:5000/instructors"),
       },
       {
         path: "/classes",
@@ -50,13 +53,25 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <AuthRoute>
+        <Dashboard></Dashboard>
+      </AuthRoute>
+    ),
     children: [
       {
         path: "student-home",
         element: (
           <StudentRoute>
             <StudentHome></StudentHome>
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "my-selected-class",
+        element: (
+          <StudentRoute>
+            <MySelectedClass></MySelectedClass>
           </StudentRoute>
         ),
       },

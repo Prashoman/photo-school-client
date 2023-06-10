@@ -1,14 +1,13 @@
 import useRole from "../../../Hooks/useRole";
 
-const ClassCard = ({ items }) => {
+const ClassCard = ({ items, handleSelectClass }) => {
   const [userRole] = useRole();
-  console.log(userRole);
+  //console.log(userRole);
   const {
     classImage,
     className,
     seats,
     price,
-    _id,
     instructorName,
     instructorImage,
   } = items || {};
@@ -40,6 +39,7 @@ const ClassCard = ({ items }) => {
         </div>
         <div className="card-actions justify-center">
           <button
+            onClick={() => handleSelectClass(items)}
             disabled={
               userRole?.instructor?.instructor ||
               userRole?.admin?.admin ||
