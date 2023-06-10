@@ -48,7 +48,8 @@ const Register = () => {
           name: data.name,
           email: data.email,
           role: "student",
-          created_at: moment().format("MMMM Do YYYY, h:mm:ss a"),
+          image: data.photo,
+          created_at: new Date().getTime(),
         };
 
         axios.post("http://localhost:5000/users", { userInfo }).then((res) => {

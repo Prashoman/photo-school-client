@@ -12,7 +12,6 @@ const ClassUpdate = () => {
   const { id } = useParams();
   const [item, setItem] = useState({});
   const hostUrl = `https://api.imgbb.com/1/upload?key=${imgHostKey}`;
-  //console.log(image);
 
   useEffect(() => {
     fetch(`http://localhost:5000/class/${id}`)
@@ -34,16 +33,12 @@ const ClassUpdate = () => {
     const className = form.className.value;
     const seats = form.seats.value;
     const price = form.price.value;
+    //console.log(image);
 
-    const classInfo = {
-      className,
-      price: parseFloat(price),
-      seats: parseInt(seats),
-    };
     if (image) {
       const formData = new FormData();
       formData.append("image", image);
-      console.log(formData);
+      //console.log(formData);
       fetch(hostUrl, {
         method: "POST",
         body: formData,
@@ -53,25 +48,48 @@ const ClassUpdate = () => {
           //console.log(data);
           if (data.success) {
             const imgUrl = data.data.display_url;
-            classInfo.classImage = imgUrl;
+            const classInfoWithImag = {
+              classImage: imgUrl,
+              className,
+              price: parseFloat(price),
+              seats: parseInt(seats),
+            };
+            axiosSecure.patch(`/class/${id}`, classInfoWithImag).then((res) => {
+              if (res.data.modifiedCount > 0) {
+                setUpdate(true);
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Updated SuccessFully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            });
           }
         });
-    }
-    console.log(classInfo);
+    } else {
+      const classInfo = {
+        className,
+        price: parseFloat(price),
+        seats: parseInt(seats),
+      };
 
-    axiosSecure.patch(`/class/${id}`, classInfo).then((res) => {
-      if (res.data.modifiedCount > 0) {
-        setUpdate(true);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Updated SuccessFully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
+      axiosSecure.patch(`/class/${id}`, classInfo).then((res) => {
+        if (res.data.modifiedCount > 0) {
+          setUpdate(true);
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Updated SuccessFully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+    }
   };
+
   // console.log(id);
   return (
     <div className="w-full h-full px-5">
