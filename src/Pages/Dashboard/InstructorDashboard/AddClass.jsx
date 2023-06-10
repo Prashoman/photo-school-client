@@ -2,7 +2,6 @@ import useAuth from "../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import moment from "moment";
 
 const imgHostKey = import.meta.env.VITE_hosted_key;
 
@@ -36,12 +35,13 @@ const AddClass = () => {
             classImage: imgUrl,
             instructorEmail,
             instructorName,
-            seats,
+            instructorImage: user?.photoURL,
+            seats: parseInt(seats),
             price: parseFloat(price),
             status: "pending",
             feedback: "no feedback",
             enroll: parseInt(0),
-            created_at: moment().format("MMMM Do YYYY, h:mm:ss a"),
+            created_at: new Date().getTime(),
           };
 
           axiosSecure.post("/class/add", classInfo).then((res) => {

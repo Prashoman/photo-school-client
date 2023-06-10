@@ -67,10 +67,10 @@ const ManageClass = () => {
       </div>
       <div>
         <div className="overflow-x-auto">
-          <table className="table table-xl table-pin-rows table-pin-cols text-center">
+          <table className="table !w-full table-xl table-pin-rows table-pin-cols text-center">
             {/* head */}
             <thead>
-              <tr>
+              <tr className="!w-full">
                 <th>SI</th>
                 <th>Class Image</th>
                 <th>Class Name</th>

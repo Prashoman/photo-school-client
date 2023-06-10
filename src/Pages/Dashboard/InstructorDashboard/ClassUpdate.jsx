@@ -4,14 +4,15 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const imgHostKey = import.meta.env.VITE_hosted_key;
-// console.log(imgHostKey);
+//console.log(imgHostKey);
 const ClassUpdate = () => {
+  const [image, setImage] = useState(null);
   const [axiosSecure] = useAxiosSecure();
   const [update, setUpdate] = useState(false);
   const { id } = useParams();
   const [item, setItem] = useState({});
   const hostUrl = `https://api.imgbb.com/1/upload?key=${imgHostKey}`;
-  //console.log(hostUrl);
+  //console.log(image);
 
   useEffect(() => {
     fetch(`http://localhost:5000/class/${id}`)
@@ -22,32 +23,42 @@ const ClassUpdate = () => {
       });
   }, [id, update]);
 
+  //set onchange in image files
+  const handleImage = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   const handleUpdate = (e) => {
     e.preventDefault();
     const form = e.target;
     const className = form.className.value;
-    const classImage = form.classImage.value;
     const seats = form.seats.value;
     const price = form.price.value;
-    console.log(classImage);
-
-    const formData = new FormData();
-    formData.append("image", classImage);
-    console.log(formData);
-    fetch(hostUrl, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
 
     const classInfo = {
       className,
-      price,
-      seats,
+      price: parseFloat(price),
+      seats: parseInt(seats),
     };
+    if (image) {
+      const formData = new FormData();
+      formData.append("image", image);
+      console.log(formData);
+      fetch(hostUrl, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          //console.log(data);
+          if (data.success) {
+            const imgUrl = data.data.display_url;
+            classInfo.classImage = imgUrl;
+          }
+        });
+    }
+    console.log(classInfo);
+
     axiosSecure.patch(`/class/${id}`, classInfo).then((res) => {
       if (res.data.modifiedCount > 0) {
         setUpdate(true);
@@ -91,8 +102,8 @@ const ClassUpdate = () => {
             </label>
             <img className="w-24 h-16 my-3" src={item?.classImage} alt="" />
             <input
+              onChange={handleImage}
               name="classImage"
-              defaultValue={item?.classImage}
               type="file"
               className="file-input file-input-bordered w-full "
             />

@@ -17,6 +17,8 @@ import MyAddedClass from "../Pages/Dashboard/InstructorDashboard/MyAddedClass";
 import ManageClass from "../Pages/Dashboard/AdminDashboard/ManageClass";
 import FeedBack from "../Pages/Dashboard/AdminDashboard/FeedBack";
 import ClassUpdate from "../Pages/Dashboard/InstructorDashboard/ClassUpdate";
+import AllInstructor from "../Pages/AllInstructor/AllInstructor";
+import AllClass from "../Pages/AllClass.jsx/AllClass";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,15 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/instructors",
+        element: <AllInstructor></AllInstructor>,
+      },
+      {
+        path: "/classes",
+        element: <AllClass></AllClass>,
+        loader: () => fetch("http://localhost:5000/all-classes"),
       },
       {
         path: "/login",

@@ -26,7 +26,7 @@ const MyAddedClass = () => {
   });
 
   const handleDelete = (item) => {
-    console.log("okg");
+    //console.log("okg");
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
