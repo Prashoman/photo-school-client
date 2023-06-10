@@ -1,4 +1,8 @@
+import useRole from "../../../Hooks/useRole";
+
 const ClassCard = ({ items }) => {
+  const [userRole] = useRole();
+  console.log(userRole);
   const {
     classImage,
     className,
@@ -9,9 +13,13 @@ const ClassCard = ({ items }) => {
     instructorImage,
   } = items || {};
   return (
-    <div className="card w-full h-full bg-base-100 px-4 py-4 shadow-xl">
+    <div
+      className={`card w-full h-full ${
+        seats === 0 ? "bg-red-500" : "bg-base-100"
+      }  px-5 py-4 shadow-xl`}
+    >
       <figure className="px-5 pt-10">
-        <img src={classImage} alt="Shoes" className="rounded-xl" />
+        <img src={classImage} alt="Shoes" className="w-full h-44 rounded-xl" />
       </figure>
       <div className="space-y-3">
         <h2 className="card-title mt-3">{className}</h2>
@@ -31,7 +39,16 @@ const ClassCard = ({ items }) => {
           <div>Available seats : {seats}</div>
         </div>
         <div className="card-actions justify-center">
-          <button className="btn btn-primary">Select</button>
+          <button
+            disabled={
+              userRole?.instructor?.instructor ||
+              userRole?.admin?.admin ||
+              seats === 0
+            }
+            className="btn btn-sm btn-primary"
+          >
+            Select
+          </button>
         </div>
       </div>
     </div>

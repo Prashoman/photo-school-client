@@ -57,7 +57,7 @@ const AddClass = () => {
             }
           });
 
-          console.log(classInfo);
+          //console.log(classInfo);
         }
       });
   };

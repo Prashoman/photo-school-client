@@ -3,7 +3,6 @@ import useAuth from "../../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import moment from "moment";
 
 const Google = () => {
   const { loginWithGoogle } = useAuth();
@@ -11,13 +10,14 @@ const Google = () => {
   const handleGoogle = () => {
     loginWithGoogle()
       .then((result) => {
-        console.log(result.user);
+        //console.log(result.user);
         const data = result.user;
         const userInfo = {
           name: data.displayName,
           email: data.email,
+          image: data.photoURL,
           role: "student",
-          created_at: moment().format("MMMM Do YYYY, h:mm:ss a"),
+          created_at: new Date().getTime(),
         };
         axios.post("http://localhost:5000/users", { userInfo }).then((res) => {
           Swal.fire({
