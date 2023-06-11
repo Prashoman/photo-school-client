@@ -127,7 +127,7 @@ const Dashboard = () => {
                 </li>
                 <li className="text-xl">
                   <NavLink
-                    to="/"
+                    to="/dashboard/enroll-class"
                     className={({ isActive }) => (isActive ? "active" : "")}
                   >
                     <FaHeart></FaHeart>
@@ -136,7 +136,7 @@ const Dashboard = () => {
                 </li>
                 <li className="text-xl">
                   <NavLink
-                    to="/"
+                    to="/dashboard/payment-history"
                     className={({ isActive }) => (isActive ? "active" : "")}
                   >
                     <FaCommentDollar></FaCommentDollar>

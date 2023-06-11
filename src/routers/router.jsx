@@ -22,6 +22,8 @@ import AllClass from "../Pages/AllClass.jsx/AllClass";
 import MySelectedClass from "../Pages/Dashboard/StudentDashboard/MySelectedClass";
 import AuthRoute from "./AuthRoute";
 import Payment from "../Pages/Dashboard/StudentDashboard/Pyments/Payment";
+import PaymentHistory from "../Pages/Dashboard/StudentDashboard/PaymentHistory";
+import EnrollClasses from "../Pages/Dashboard/StudentDashboard/EnrollClasses";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +83,22 @@ const router = createBrowserRouter([
         element: (
           <StudentRoute>
             <Payment></Payment>
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "payment-history",
+        element: (
+          <StudentRoute>
+            <PaymentHistory></PaymentHistory>
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "enroll-class",
+        element: (
+          <StudentRoute>
+            <EnrollClasses></EnrollClasses>
           </StudentRoute>
         ),
       },
