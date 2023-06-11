@@ -7,7 +7,7 @@ const useSelectedClass = () => {
   const [axiosSecure] = useAxiosSecure();
   const { data: selectClass = [], refetch } = useQuery({
     queryKey: ["selectClass", user?.email],
-    enabled: !loading,
+    enabled: !loading && !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(`/cart?email=${user?.email}`);
       return res.data;

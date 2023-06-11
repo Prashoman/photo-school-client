@@ -68,7 +68,7 @@ const MySelectedClass = () => {
                     >
                       <FaTrashAlt className="w-6 h-6"></FaTrashAlt>
                     </button>
-                    <Link>
+                    <Link to={`/dashboard/payment/${item._id}`}>
                       <button className=" bg-blue-400 rounded-lg p-2 text-white hover:bg-blue-900">
                         Pay
                       </button>

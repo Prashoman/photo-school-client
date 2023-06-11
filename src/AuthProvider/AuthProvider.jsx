@@ -44,11 +44,11 @@ const AuthProvider = ({ children }) => {
           .then((res) => {
             //console.log(res.data.jwtToken);
             localStorage.setItem("token", res.data.jwtToken);
+            setLoading(false);
           });
       } else {
         localStorage.removeItem("token");
       }
-      setLoading(false);
     });
     return () => {
       unsubscribe();
