@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 import { useState } from "react";
@@ -13,6 +13,8 @@ const Login = () => {
   const [error, setError] = useState("");
   const { userLogin } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -38,7 +40,7 @@ const Login = () => {
         });
 
         reset();
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         //console.log(error.message);

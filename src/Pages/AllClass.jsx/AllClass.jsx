@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import ClassCard from "../Shared/ClassCard/ClassCard";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
@@ -12,10 +12,11 @@ const AllClass = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [axiosSecure] = useAxiosSecure();
+  const location = useLocation();
   //console.log(selectClass);
 
   const handleSelectClass = (item) => {
-    if (!user) {
+    if (!user && !user?.email) {
       Swal.fire({
         title: "Please at first login",
         text: "You select the class at first login then select the class",
@@ -26,7 +27,7 @@ const AllClass = () => {
         confirmButtonText: "Go to Login",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/login");
+          navigate("/login", { state: { from: location } });
         }
       });
     } else {

@@ -59,7 +59,7 @@ const EnrollClasses = () => {
                   <td>{item.seats}</td>
                   <td>{item.enroll}</td>
                   <td>
-                    <button className="btn btn-sm btn-success">
+                    <button className="btn btn-sm btn-primary">
                       {" "}
                       Play Class
                     </button>

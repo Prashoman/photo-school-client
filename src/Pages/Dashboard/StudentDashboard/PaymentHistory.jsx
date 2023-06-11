@@ -1,25 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../../Hooks/useAuth";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import usePayments from "../../../Hooks/usePayments";
 
 const PaymentHistory = () => {
-  const { user, loading } = useAuth();
-  const [axiosSecure] = useAxiosSecure();
+  const [paymentHistory] = usePayments();
 
-  const { data: paymentHistory = [] } = useQuery({
-    queryKey: ["paymentHistory", user?.email],
-    enabled: !loading && !!user?.email,
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/payments?email=${user?.email}`);
-      return res.data;
-    },
-  });
   console.log(paymentHistory);
 
   return (
-    <div className="w-full h-full">
-      <div>
-        <h1>Total Payment in Classes : {paymentHistory.length}</h1>
+    <div className="w-full h-full px-5">
+      <div className="text-center my-6">
+        <h1 className="text-3xl font-sans font-bold">
+          Total Payment in Classes : {paymentHistory.length}
+        </h1>
       </div>
       <div>
         <div className="overflow-x-auto">

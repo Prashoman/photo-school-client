@@ -18,7 +18,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="mb-24">
+      <div className="mb-[115px]">
         <Navbar></Navbar>
       </div>
       <div className="drawer lg:drawer-open">

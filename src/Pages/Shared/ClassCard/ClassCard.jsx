@@ -1,7 +1,10 @@
+import usePayments from "../../../Hooks/usePayments";
 import useRole from "../../../Hooks/useRole";
 
 const ClassCard = ({ items, handleSelectClass }) => {
   const [userRole] = useRole();
+
+  const [paymentHistory] = usePayments();
   //console.log(userRole);
   const {
     classImage,
@@ -43,7 +46,8 @@ const ClassCard = ({ items, handleSelectClass }) => {
             disabled={
               userRole?.instructor?.instructor ||
               userRole?.admin?.admin ||
-              seats === 0
+              seats === 0 ||
+              paymentHistory.find((pay) => pay.classId === items._id)
             }
             className="btn btn-sm btn-primary"
           >

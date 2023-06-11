@@ -6,7 +6,7 @@ import Navbar from "../Pages/Shared/Navbar/Navbar";
 const Main = () => {
   return (
     <div>
-      <div className="mb-[90px]">
+      <div className="mb-[115px]">
         <Navbar></Navbar>
       </div>
       <Outlet></Outlet>
