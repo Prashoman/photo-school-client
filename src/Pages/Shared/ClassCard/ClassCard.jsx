@@ -17,6 +17,9 @@ const ClassCard = ({ items, handleSelectClass }) => {
   } = items || {};
   return (
     <motion.dev
+      initial={{ x: "10vw" }}
+      animate={{ x: 0 }}
+      transition={{ type: "spring", delay: 0.5 }}
       whileHover={{
         scale: 1.1,
         textShadow: "0px 0px 8px rgb(255,255,255)",
