@@ -11,7 +11,7 @@ const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch("review.json")
+    fetch("https://photgraphy-school-server.vercel.app/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
