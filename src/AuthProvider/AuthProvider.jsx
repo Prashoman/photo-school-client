@@ -40,7 +40,9 @@ const AuthProvider = ({ children }) => {
 
       if (currentUser) {
         axios
-          .post("http://localhost:5000/jwt", { email: currentUser?.email })
+          .post("https://photgraphy-school-server.vercel.app/jwt", {
+            email: currentUser?.email,
+          })
           .then((res) => {
             //console.log(res.data.jwtToken);
             localStorage.setItem("token", res.data.jwtToken);

@@ -52,21 +52,25 @@ const Register = () => {
           created_at: new Date().getTime(),
         };
 
-        axios.post("http://localhost:5000/users", { userInfo }).then((res) => {
-          if (res.data.insertedId) {
-            Swal.fire({
-              title: "User Login Successfully.",
-              showClass: {
-                popup: "animate__animated animate__fadeInDown",
-              },
-              hideClass: {
-                popup: "animate__animated animate__fadeOutUp",
-              },
-            });
-            reset();
-            navigate("/");
-          }
-        });
+        axios
+          .post("https://photgraphy-school-server.vercel.app/users", {
+            userInfo,
+          })
+          .then((res) => {
+            if (res.data.insertedId) {
+              Swal.fire({
+                title: "User Login Successfully.",
+                showClass: {
+                  popup: "animate__animated animate__fadeInDown",
+                },
+                hideClass: {
+                  popup: "animate__animated animate__fadeOutUp",
+                },
+              });
+              reset();
+              navigate("/");
+            }
+          });
       })
       .catch((error) => {
         //console.log(error.message);

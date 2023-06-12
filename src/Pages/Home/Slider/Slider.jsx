@@ -8,7 +8,7 @@ const Slider = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/sliders")
+    fetch("https://photgraphy-school-server.vercel.app/sliders")
       .then((res) => res.json())
       .then((data) => {
         setData(data);

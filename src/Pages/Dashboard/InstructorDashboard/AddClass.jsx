@@ -2,6 +2,7 @@ import useAuth from "../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const imgHostKey = import.meta.env.VITE_hosted_key;
 
@@ -63,6 +64,10 @@ const AddClass = () => {
   };
   return (
     <div className="w-full h-full px-4">
+      <Helmet>
+        <title>Photography School | instructors addClass</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div className="text-center my-4">
         <h1 className="text-3xl font-bold font-sans">Add an Classes</h1>
       </div>

@@ -4,6 +4,7 @@ import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import useSelectedClass from "../../../../Hooks/useSelectedClass";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const CheckOutFrom = ({ cart, price }) => {
   const { user } = useAuth();
@@ -112,6 +113,10 @@ const CheckOutFrom = ({ cart, price }) => {
 
   return (
     <div>
+      <Helmet>
+        <title>Photography School | students payments</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <form onSubmit={handleSubmit}>
         <CardElement
           className="border border-base-200 p-2 rounded-lg"

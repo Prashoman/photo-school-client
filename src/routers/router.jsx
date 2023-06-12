@@ -37,12 +37,14 @@ const router = createBrowserRouter([
       {
         path: "/instructors",
         element: <AllInstructor></AllInstructor>,
-        loader: () => fetch("http://localhost:5000/instructors"),
+        loader: () =>
+          fetch("https://photgraphy-school-server.vercel.app/instructors"),
       },
       {
         path: "/classes",
         element: <AllClass></AllClass>,
-        loader: () => fetch("http://localhost:5000/all-classes"),
+        loader: () =>
+          fetch("https://photgraphy-school-server.vercel.app/all-classes"),
       },
       {
         path: "/login",

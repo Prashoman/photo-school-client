@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -22,7 +23,7 @@ const FeedBack = () => {
     };
     console.log(feedbackInfo);
 
-    fetch(`http://localhost:5000/feedback/${id}`, {
+    fetch(`https://photgraphy-school-server.vercel.app/feedback/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -45,6 +46,10 @@ const FeedBack = () => {
   };
   return (
     <div className="w-full h-full px-5">
+      <Helmet>
+        <title>Photography School | admin feedback</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div>
         <Link to="/dashboard/manage-class">
           <button className="btn btn-sm btn-success"> Back</button>

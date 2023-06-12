@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const ManageClass = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -22,9 +23,12 @@ const ManageClass = () => {
   const handleStatusApprove = (item) => {
     console.log("Approve", item._id);
 
-    fetch(`http://localhost:5000/status/approve/${item?._id}`, {
-      method: "PATCH",
-    })
+    fetch(
+      `https://photgraphy-school-server.vercel.app/status/approve/${item?._id}`,
+      {
+        method: "PATCH",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -42,9 +46,12 @@ const ManageClass = () => {
 
   const handleStatusDeny = (item) => {
     console.log("Denny", item._id);
-    fetch(`http://localhost:5000/status/deny/${item?._id}`, {
-      method: "PATCH",
-    })
+    fetch(
+      `https://photgraphy-school-server.vercel.app/status/deny/${item?._id}`,
+      {
+        method: "PATCH",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -61,6 +68,10 @@ const ManageClass = () => {
   };
   return (
     <div className="w-full h-full px-8">
+      <Helmet>
+        <title>Photography School | admin manageClass</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div className="text-center">
         <h1>All the classes added by the Instructor</h1>
         <h2>Total Classes : {allClass.length}</h2>

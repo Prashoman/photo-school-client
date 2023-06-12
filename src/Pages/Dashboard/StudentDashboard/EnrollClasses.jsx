@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet";
 
 const EnrollClasses = () => {
   const { user, loading } = useAuth();
@@ -19,6 +20,10 @@ const EnrollClasses = () => {
   //console.log(enrollClass);
   return (
     <div className="w-full h-full px-5">
+      <Helmet>
+        <title>Photography School | student enrollClass</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div className="text-center my-8">
         <h1 className="text-3xl font-sans font-bold">
           My Enroll Classes : {enrollClass.length}

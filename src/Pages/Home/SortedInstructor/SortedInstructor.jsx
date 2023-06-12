@@ -1,21 +1,32 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const SortedInstructor = () => {
   const [topInstructor, setTopInstructor] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/instructor/class-sort").then((res) => {
-      console.log(res.data);
-      setTopInstructor(res.data);
-    });
+    axios
+      .get("https://photgraphy-school-server.vercel.app/instructor/class-sort")
+      .then((res) => {
+        console.log(res.data);
+        setTopInstructor(res.data);
+      });
   }, []);
 
   return (
-    <div className="px-5 lg:px-28">
-      <h1 className="text-4xl font-sans font-bold">Top Instructor</h1>
+    <div className="px-5 lg:px-28 py-10">
+      <div className="w-3/4 mx-auto text-center space-y-4 my-10">
+        <h1 className="text-4xl font-sans font-bold">Top Instructors</h1>
+        <p className="my-8 font-sans text-xl">
+          The only thing he seems to like more than landscape photography is
+          sharing everything he knows about it. Want to learn even more about
+          building a landscape photography business? Check out our guides on
+          building .
+        </p>
+      </div>
 
-      <div className="grid lg:grid-cols-3 gap-10">
+      <div className="grid lg:grid-cols-3 gap-10 mb-10">
         {topInstructor?.map((item, index) => (
           <div
             key={index}
@@ -40,6 +51,11 @@ const SortedInstructor = () => {
             </div>
           </div>
         ))}
+      </div>
+      <div className="text-center">
+        <Link to="/instructors">
+          <button className="btn btn-primary">See more instructor</button>
+        </Link>
       </div>
     </div>
   );

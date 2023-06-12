@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const ManageUser = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -16,9 +17,12 @@ const ManageUser = () => {
 
   const handleMakeInstructor = (user) => {
     //console.log("asi");
-    fetch(`http://localhost:5000/user/instructor/${user?._id}`, {
-      method: "PATCH",
-    })
+    fetch(
+      `https://photgraphy-school-server.vercel.app/user/instructor/${user?._id}`,
+      {
+        method: "PATCH",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         //console.log(data);
@@ -37,9 +41,12 @@ const ManageUser = () => {
 
   const handleMakeAdmin = (user) => {
     console.log("asi");
-    fetch(`http://localhost:5000/user/admin/${user?._id}`, {
-      method: "PATCH",
-    })
+    fetch(
+      `https://photgraphy-school-server.vercel.app/user/admin/${user?._id}`,
+      {
+        method: "PATCH",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         //console.log(data);
@@ -73,7 +80,7 @@ const ManageUser = () => {
         //     'success'
         //   )
 
-        fetch(`http://localhost:5000/user/${user?._id}`, {
+        fetch(`https://photgraphy-school-server.vercel.app/user/${user?._id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -89,6 +96,10 @@ const ManageUser = () => {
   };
   return (
     <div className="w-full h-full px-8">
+      <Helmet>
+        <title>Photography School | admin manageUser</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div>Total User : {users.length}</div>
       <div>
         <div className="overflow-x-auto">

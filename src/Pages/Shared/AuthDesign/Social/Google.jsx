@@ -19,19 +19,23 @@ const Google = () => {
           role: "student",
           created_at: new Date().getTime(),
         };
-        axios.post("http://localhost:5000/users", { userInfo }).then((res) => {
-          Swal.fire({
-            title: "User Login Successfully.",
-            showClass: {
-              popup: "animate__animated animate__fadeInDown",
-            },
-            hideClass: {
-              popup: "animate__animated animate__fadeOutUp",
-            },
-          });
+        axios
+          .post("https://photgraphy-school-server.vercel.app/users", {
+            userInfo,
+          })
+          .then((res) => {
+            Swal.fire({
+              title: "User Login Successfully.",
+              showClass: {
+                popup: "animate__animated animate__fadeInDown",
+              },
+              hideClass: {
+                popup: "animate__animated animate__fadeOutUp",
+              },
+            });
 
-          navigate("/");
-        });
+            navigate("/");
+          });
       })
       .catch((error) => {
         console.log(error);

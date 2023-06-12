@@ -5,6 +5,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const MyAddedClass = () => {
   const { user, loading } = useAuth();
@@ -49,6 +50,10 @@ const MyAddedClass = () => {
 
   return (
     <div className="w-full h-full px-5">
+      <Helmet>
+        <title>Photography School | instructors myClass</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div>
         <h1 className="text-2xl font-bold">
           Total Added Class : {classes.length}

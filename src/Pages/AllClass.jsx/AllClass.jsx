@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import useSelectedClass from "../../Hooks/useSelectedClass";
+import MenuClass from "./MenuClass";
+import { Helmet } from "react-helmet";
 
 const AllClass = () => {
   const data = useLoaderData();
@@ -13,6 +15,7 @@ const AllClass = () => {
   const navigate = useNavigate();
   const [axiosSecure] = useAxiosSecure();
   const location = useLocation();
+
   //console.log(selectClass);
 
   const handleSelectClass = (item) => {
@@ -62,21 +65,29 @@ const AllClass = () => {
   };
 
   return (
-    <div className="my-9 px-24">
-      <div className="mt-7">
-        {" "}
-        <h1>All Class</h1>
+    <>
+      <Helmet>
+        <title>Photography School | Classes</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
+      <MenuClass></MenuClass>
+
+      <div className="mt-20 px-6 lg:px-24">
+        <div className="my-10 text-center">
+          {" "}
+          <h1 className="text-4xl font-sans font-bold">All Classes</h1>
+        </div>
+        <div className="grid lg:grid-cols-3 gap-8 mb-9">
+          {data.map((item) => (
+            <ClassCard
+              handleSelectClass={handleSelectClass}
+              key={item._id}
+              items={item}
+            ></ClassCard>
+          ))}
+        </div>
       </div>
-      <div className="grid grid-cols-3 gap-8">
-        {data.map((item) => (
-          <ClassCard
-            handleSelectClass={handleSelectClass}
-            key={item._id}
-            items={item}
-          ></ClassCard>
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 

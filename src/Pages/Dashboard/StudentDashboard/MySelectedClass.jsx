@@ -3,6 +3,7 @@ import useSelectedClass from "../../../Hooks/useSelectedClass";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const MySelectedClass = () => {
   const [selectClass, refetch] = useSelectedClass();
@@ -31,6 +32,10 @@ const MySelectedClass = () => {
   };
   return (
     <div className="w-full h-full my-5 px-5">
+      <Helmet>
+        <title>Photography School | student selectedClass</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div className="text-center space-y-3 mb-5">
         <h2 className="text-2xl font-sans font-bold">My Selected All Class</h2>
         <h1 className="text-2xl text-orange-400 font-sans font-bold">

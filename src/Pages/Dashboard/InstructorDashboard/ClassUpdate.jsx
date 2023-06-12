@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const imgHostKey = import.meta.env.VITE_hosted_key;
 //console.log(imgHostKey);
@@ -14,7 +15,7 @@ const ClassUpdate = () => {
   const hostUrl = `https://api.imgbb.com/1/upload?key=${imgHostKey}`;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/class/${id}`)
+    fetch(`https://photgraphy-school-server.vercel.app/class/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setUpdate(false);
@@ -93,6 +94,10 @@ const ClassUpdate = () => {
   // console.log(id);
   return (
     <div className="w-full h-full px-5">
+      <Helmet>
+        <title>Photography School | instructors updateClass</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <div className="my-10">
         <div className="flex justify-between items-center">
           <h1>Update Item</h1>

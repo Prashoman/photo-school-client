@@ -1,28 +1,89 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useRole from "../../../Hooks/useRole";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import useSelectedClass from "../../../Hooks/useSelectedClass";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import usePayments from "../../../Hooks/usePayments";
 
 const SortedClass = () => {
   const [popularClass, setPopularClass] = useState();
   const [userRole] = useRole();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [selectClass, refetch] = useSelectedClass();
+  const [paymentHistory] = usePayments();
+  const [axiosSecure] = useAxiosSecure();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/all-classes-sort").then((res) => {
-      setPopularClass(res.data);
-    });
+    axios
+      .get("https://photgraphy-school-server.vercel.app/all-classes-sort")
+      .then((res) => {
+        setPopularClass(res.data);
+      });
   }, []);
 
   //console.log(popularClass);
-  const handleSelectClass = (items) => {
-    console.log("popular", items);
+  const handleSelectClass = (item) => {
+    if (!user && !user?.email) {
+      Swal.fire({
+        title: "Please at first login",
+        text: "You select the class at first login then select the class",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Go to Login",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login", { state: { from: location } });
+        }
+      });
+    } else {
+      //console.log(item);
+
+      const classAllReadySelected = selectClass.find(
+        (selectItem) => selectItem.classId == item._id
+      );
+      //console.log(classAllReadySelected);
+
+      if (classAllReadySelected) {
+        return toast.warning("All ready selected the class !");
+      }
+
+      const cartInfo = {
+        classId: item._id,
+        className: item.className,
+        classImage: item.classImage,
+        userEmail: user?.email,
+        price: item.price,
+        created_at: new Date().getTime(),
+      };
+
+      axiosSecure.post("/cart/class", cartInfo).then((res) => {
+        //console.log(res.data);
+        if (res.data.insertedId) {
+          refetch();
+          toast.success("Select the class successfully!");
+        }
+      });
+    }
   };
 
   return (
-    <div className="px-5 lg:px-28 my-8">
-      <div className="text-center my-6">
-        <h1 className="text-3xl font-sans font-bold">Top Popular Classes</h1>
+    <div className="px-5 lg:px-28 py-10">
+      <div className="text-center my-6 w-3/4 mx-auto">
+        <h1 className="text-4xl font-sans font-bold">Top Popular Classes</h1>
+        <p className="my-8 font-sans text-xl">
+          Cambridge in Colour may not refer to itself as a photo blog site, but
+          their philosophy suggests otherwise: instead of showing you how
+          something is done, they’ll explain why.
+        </p>
       </div>
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid lg:grid-cols-3 gap-8 mb-14">
         {popularClass?.map((item) => (
           <div
             key={item._id}
@@ -68,7 +129,8 @@ const SortedClass = () => {
                   disabled={
                     userRole?.instructor?.instructor ||
                     userRole?.admin?.admin ||
-                    item?.seats === 0
+                    item?.seats === 0 ||
+                    paymentHistory.find((pay) => pay.classId === item._id)
                   }
                   className="btn btn-sm btn-primary"
                 >
@@ -78,6 +140,12 @@ const SortedClass = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="text-center">
+        <Link to="/classes">
+          <button className="btn btn-primary">SEE More Classes</button>
+        </Link>
       </div>
     </div>
   );
