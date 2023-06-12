@@ -24,6 +24,27 @@ using the react icon and the swipe js slider and motion animation react tanstack
 
 On the backend using dotenv and jwt token verify admin verify jwt verify instructor and etc .
 
+## Project introduction:
+
+This project school manegment system three role added this project first of all any user register he/she is student role and only admin change the role .another instructor role she/he add the class and this class first of all pending admin approve the class then this class show the client side so, student bay the class and payment implements stripe
+payments system. and student see the my enroll class.
+
+## Client side packages:
+
+react router dom
+react-stripe-js
+react-helmet
+axios
+react-hook-form
+react-icons
+react-toastify
+sweetalert
+swiper
+react-query
+framer-motion
+firebase
+etc.
+
 ## css framework use to
 
 Tailwind ->[link](https://tailwindcss.com/)
