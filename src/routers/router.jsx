@@ -24,11 +24,13 @@ import AuthRoute from "./AuthRoute";
 import Payment from "../Pages/Dashboard/StudentDashboard/Pyments/Payment";
 import PaymentHistory from "../Pages/Dashboard/StudentDashboard/PaymentHistory";
 import EnrollClasses from "../Pages/Dashboard/StudentDashboard/EnrollClasses";
+import Error from "../Pages/error/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",
@@ -58,6 +60,7 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
+    errorElement: <Error></Error>,
     element: (
       <AuthRoute>
         <Dashboard></Dashboard>
