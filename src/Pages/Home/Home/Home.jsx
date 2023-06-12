@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet";
 import Slider from "../Slider/Slider";
 import SortedClass from "../SortedClass/SortedClass";
 import SortedInstructor from "../SortedInstructor/SortedInstructor";
+import Testimonials from "../Testimonials/Testimonials";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Slider></Slider>
       <SortedClass></SortedClass>
       <SortedInstructor></SortedInstructor>
+      <Testimonials></Testimonials>
     </div>
   );
 };
