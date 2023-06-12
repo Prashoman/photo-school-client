@@ -79,7 +79,9 @@ const Dashboard = () => {
                 <li className="text-xl">
                   <NavLink
                     to="/dashboard/instructor-home"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "bg-blue-300" : ""
+                    }
                   >
                     <FaHome></FaHome>
                     Instructor Home
@@ -88,7 +90,9 @@ const Dashboard = () => {
                 <li className="text-xl">
                   <NavLink
                     to="/dashboard/add-class"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "bg-blue-300" : ""
+                    }
                   >
                     <FaPlusSquare></FaPlusSquare>
                     Add a Class
@@ -97,7 +101,9 @@ const Dashboard = () => {
                 <li className="text-xl">
                   <NavLink
                     to="/dashboard/my-class"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "bg-blue-300" : ""
+                    }
                   >
                     <FaHeart></FaHeart>
                     My Class
@@ -110,7 +116,9 @@ const Dashboard = () => {
                 <li className="text-xl">
                   <NavLink
                     to="/dashboard/student-home"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "bg-blue-300" : ""
+                    }
                   >
                     <FaHome></FaHome>
                     Student Home
@@ -119,7 +127,9 @@ const Dashboard = () => {
                 <li className="text-xl">
                   <NavLink
                     to="/dashboard/my-selected-class"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "bg-blue-300" : ""
+                    }
                   >
                     <FaRegBookmark></FaRegBookmark>
                     My Selected Classes
@@ -128,7 +138,9 @@ const Dashboard = () => {
                 <li className="text-xl">
                   <NavLink
                     to="/dashboard/enroll-class"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "bg-blue-300" : ""
+                    }
                   >
                     <FaHeart></FaHeart>
                     My Enrolled Classes
@@ -137,7 +149,9 @@ const Dashboard = () => {
                 <li className="text-xl">
                   <NavLink
                     to="/dashboard/payment-history"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "bg-blue-300" : ""
+                    }
                   >
                     <FaCommentDollar></FaCommentDollar>
                     Payment History page

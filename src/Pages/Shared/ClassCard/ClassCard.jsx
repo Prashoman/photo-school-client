@@ -1,5 +1,6 @@
 import usePayments from "../../../Hooks/usePayments";
 import useRole from "../../../Hooks/useRole";
+import { motion } from "framer-motion";
 
 const ClassCard = ({ items, handleSelectClass }) => {
   const [userRole] = useRole();
@@ -15,7 +16,12 @@ const ClassCard = ({ items, handleSelectClass }) => {
     instructorImage,
   } = items || {};
   return (
-    <div
+    <motion.dev
+      whileHover={{
+        scale: 1.1,
+        textShadow: "0px 0px 8px rgb(255,255,255)",
+        boxShadow: "0px 0px 8px rgb(0,0,153)",
+      }}
       className={`card w-full h-full ${
         seats === 0 ? "bg-red-500" : "bg-base-100"
       }  px-5 py-4 shadow-xl`}
@@ -55,7 +61,7 @@ const ClassCard = ({ items, handleSelectClass }) => {
           </button>
         </div>
       </div>
-    </div>
+    </motion.dev>
   );
 };
 

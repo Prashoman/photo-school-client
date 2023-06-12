@@ -3,6 +3,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const Slider = () => {
   const [data, setData] = useState([]);
@@ -17,7 +18,11 @@ const Slider = () => {
   // console.log(data);
 
   return (
-    <div>
+    <motion.div
+      initial={{ x: "20vw" }}
+      animate={{ x: 0 }}
+      transition={{ type: "spring", delay: 0.5 }}
+    >
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         {data.map((item, index) => (
           <SwiperSlide key={index}>
@@ -27,11 +32,25 @@ const Slider = () => {
             >
               <div className="hero-overlay bg-opacity-60"></div>
               <div className="hero-content  text-neutral-content">
-                <div className="w-3/4 lg:w-1/2">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.5, duration: 1.5 }}
+                  className="w-3/4 lg:w-1/2"
+                >
                   <h1 className="mb-5 text-5xl font-bold">{item.title}</h1>
                   <p className="mb-5">{item.description}</p>
-                  <button className="btn btn-primary">Read More</button>
-                </div>
+                  <motion.button
+                    whileHover={{
+                      scale: 1.1,
+                      textShadow: "0px 0px 8px rgb(255,255,255)",
+                      boxShadow: "0px 0px 8px rgb(255,255,255)",
+                    }}
+                    className="btn btn-primary"
+                  >
+                    Read More
+                  </motion.button>
+                </motion.div>
               </div>
             </div>
           </SwiperSlide>
@@ -46,7 +65,7 @@ const Slider = () => {
         <SwiperSlide>Slide 8</SwiperSlide>
         <SwiperSlide>Slide 9</SwiperSlide> */}
       </Swiper>
-    </div>
+    </motion.div>
   );
 };
 

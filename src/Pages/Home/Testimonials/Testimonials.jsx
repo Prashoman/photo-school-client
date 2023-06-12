@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper";
 import { useEffect, useState } from "react";
 import { FaQuoteLeft } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
@@ -15,7 +16,7 @@ const Testimonials = () => {
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
-        console.log(data);
+        //console.log(data);
       });
   }, []);
   return (
@@ -46,9 +47,16 @@ const Testimonials = () => {
                     <div className=" w-full mx-auto ms-28 lg:ms-96">
                       <div className="lg:flex gap-6 items-center">
                         <div className="avatar">
-                          <div className="w-12 lg:w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                          <motion.div
+                            whileHover={{
+                              scale: 1.5,
+                              textShadow: "0px 0px 8px rgb(255,255,255)",
+                              boxShadow: "0px 0px 8px rgb(0,0,153)",
+                            }}
+                            className="w-12 lg:w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
+                          >
                             <img src={item.image_url} />
-                          </div>
+                          </motion.div>
                         </div>
                         <div>
                           <h1 className="text-2xl font-sans font-bold">

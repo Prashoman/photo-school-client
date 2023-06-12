@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import useSelectedClass from "../../../Hooks/useSelectedClass";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import usePayments from "../../../Hooks/usePayments";
+import { motion } from "framer-motion";
 
 const SortedClass = () => {
   const [popularClass, setPopularClass] = useState();
@@ -85,7 +86,12 @@ const SortedClass = () => {
       </div>
       <div className="grid lg:grid-cols-3 gap-8 mb-14">
         {popularClass?.map((item) => (
-          <div
+          <motion.div
+            whileHover={{
+              scale: 1.1,
+              textShadow: "0px 0px 8px rgb(255,255,255)",
+              boxShadow: "0px 0px 8px rgb(0,0,153)",
+            }}
             key={item._id}
             className={`card w-full h-full ${
               item?.seats === 0 ? "bg-red-500" : "bg-base-100"
@@ -138,13 +144,22 @@ const SortedClass = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
       <div className="text-center">
         <Link to="/classes">
-          <button className="btn btn-primary">SEE More Classes</button>
+          <motion.button
+            whileHover={{
+              scale: 1.1,
+              textShadow: "0px 0px 8px rgb(255,255,255)",
+              boxShadow: "0px 0px 8px rgb(0,0,153)",
+            }}
+            className="btn btn-primary"
+          >
+            SEE More Classes
+          </motion.button>
         </Link>
       </div>
     </div>

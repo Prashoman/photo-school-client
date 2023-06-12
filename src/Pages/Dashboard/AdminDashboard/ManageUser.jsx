@@ -95,12 +95,14 @@ const ManageUser = () => {
     });
   };
   return (
-    <div className="w-full h-full px-8">
+    <div className="w-full h-full px-8 py-9">
       <Helmet>
         <title>Photography School | admin manageUser</title>
         <link rel="canonical" href="https://www.tacobell.com/" />
       </Helmet>
-      <div>Total User : {users.length}</div>
+      <div className="my-8">
+        <h1 className="text-2xl my-3">Total User : {users.length}</h1>
+      </div>
       <div>
         <div className="overflow-x-auto">
           <table className="table table-xs">

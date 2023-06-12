@@ -1,20 +1,14 @@
 import { Navigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import useRole from "../Hooks/useRole";
+import Loading from "../Pages/Loading/Loading";
 
 const InstructorRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const [userRole, isLoading] = useRole();
 
   if (loading || isLoading) {
-    return (
-      <div>
-        <span className="loading loading-ring loading-xs"></span>
-        <span className="loading loading-ring loading-sm"></span>
-        <span className="loading loading-ring loading-md"></span>
-        <span className="loading loading-ring loading-lg"></span>
-      </div>
-    );
+    return <Loading></Loading>;
   }
 
   if (user && userRole?.instructor?.instructor) {

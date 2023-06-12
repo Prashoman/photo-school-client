@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import MenuInstructor from "./MenuInstructor";
 import { Helmet } from "react-helmet";
+import { motion } from "framer-motion";
 
 const AllInstructor = () => {
   const instructors = useLoaderData();
@@ -20,7 +21,12 @@ const AllInstructor = () => {
 
         <div className="grid lg:grid-cols-3 gap-10 my-8">
           {instructors.map((item) => (
-            <div
+            <motion.div
+              whileHover={{
+                scale: 1.1,
+                textShadow: "0px 0px 8px rgb(255,255,255)",
+                boxShadow: "0px 0px 8px rgb(0,0,153)",
+              }}
               key={item._id}
               className="card card-compact w-full h-full bg-base-100 border-2 border-[#570DF8]"
             >
@@ -38,7 +44,7 @@ const AllInstructor = () => {
                   <button className="btn btn-sm btn-primary">See Class</button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

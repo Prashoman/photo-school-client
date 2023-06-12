@@ -9,7 +9,9 @@ const InstructorHome = () => {
         <title>Photography School | instructor Dashboard</title>
         <link rel="canonical" href="https://www.tacobell.com/" />
       </Helmet>
-      <h2>Welcome Instructor {user?.displayName}</h2>
+      <h2 className="text-4xl font-sans font-bold">
+        Welcome Instructor {user?.displayName}
+      </h2>
     </div>
   );
 };

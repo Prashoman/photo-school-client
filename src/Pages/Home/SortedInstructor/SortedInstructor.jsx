@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const SortedInstructor = () => {
   const [topInstructor, setTopInstructor] = useState([]);
@@ -9,7 +10,7 @@ const SortedInstructor = () => {
     axios
       .get("https://photgraphy-school-server.vercel.app/instructor/class-sort")
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         setTopInstructor(res.data);
       });
   }, []);
@@ -28,7 +29,12 @@ const SortedInstructor = () => {
 
       <div className="grid lg:grid-cols-3 gap-10 mb-10">
         {topInstructor?.map((item, index) => (
-          <div
+          <motion.div
+            whileHover={{
+              scale: 1.1,
+              textShadow: "0px 0px 8px rgb(255,255,255)",
+              boxShadow: "0px 0px 8px rgb(0,0,153)",
+            }}
             key={index}
             className="card card-compact w-full h-full bg-base-100 border-2 border-[#570DF8]"
           >
@@ -49,12 +55,21 @@ const SortedInstructor = () => {
                 <button className="btn btn-sm btn-primary">See Class</button>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
       <div className="text-center">
         <Link to="/instructors">
-          <button className="btn btn-primary">See more instructor</button>
+          <motion.button
+            whileHover={{
+              scale: 1.1,
+              textShadow: "0px 0px 8px rgb(255,255,255)",
+              boxShadow: "0px 0px 8px rgb(0,0,153)",
+            }}
+            className="btn btn-primary"
+          >
+            See more instructor
+          </motion.button>
         </Link>
       </div>
     </div>

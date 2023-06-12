@@ -1,13 +1,14 @@
 import { Navigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import useRole from "../Hooks/useRole";
+import Loading from "../Pages/Loading/Loading";
 
 const StudentRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const [userRole, isLoading] = useRole();
 
   if (loading || isLoading) {
-    return <progress className="progress w-56"></progress>;
+    return <Loading></Loading>;
   }
 
   if (user && userRole?.student?.student) {

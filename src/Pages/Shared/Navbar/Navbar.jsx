@@ -4,6 +4,7 @@ import useRole from "../../../Hooks/useRole";
 import { FaShoppingCart } from "react-icons/fa";
 import useSelectedClass from "../../../Hooks/useSelectedClass";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const { user, userLogeOut } = useAuth();
@@ -123,7 +124,12 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-xl fixed top-0 left-0 w-full z-50 h-28  px-4 md:px-16 lg:px-24">
+    <motion.div
+      initial={{ y: "3vw" }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", delay: 0.5 }}
+      className="navbar bg-base-100 shadow-xl fixed top-0 left-0 w-full z-50 h-28  px-4 md:px-16 lg:px-24"
+    >
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -193,23 +199,38 @@ const Navbar = () => {
                 </div>
               </div>
             )}
-            <button
+            <motion.button
+              whileHover={{
+                scale: 1.1,
+                textShadow: "0px 0px 8px rgb(255,255,255)",
+                boxShadow: "0px 0px 8px rgb(0,0,153)",
+              }}
               onClick={handleLogOut}
               className="ms-3 btn btn-sm btn-primary"
             >
               LogOut
-            </button>{" "}
+            </motion.button>{" "}
           </>
         ) : (
           <>
             {" "}
-            <Link to="/login" className="btn btn-sm btn-primary">
-              Login
+            <Link to="/login">
+              <motion.button
+                whileHover={{
+                  scale: 1.1,
+                  textShadow: "0px 0px 8px rgb(255,255,255)",
+                  boxShadow: "0px 0px 8px rgb(0,0,153)",
+                }}
+                className="btn btn-sm btn-primary"
+              >
+                {" "}
+                Login
+              </motion.button>
             </Link>
           </>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

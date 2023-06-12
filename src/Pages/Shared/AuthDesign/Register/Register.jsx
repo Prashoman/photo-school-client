@@ -85,9 +85,9 @@ const Register = () => {
         <title>Photography School | Register</title>
         <link rel="canonical" href="https://www.tacobell.com/" />
       </Helmet>
-      <div className="hero min-h-screen px-28 loginImg">
-        <div className="hero-content flex lg:flex shadow-xl border-2 border-base-300 p-10">
-          <div className="text-center w-1/2">
+      <div className="hero min-h-screen px-5 lg:px-28 loginImg">
+        <div className="hero-content flex-col lg:flex-row shadow-xl border-2 border-base-300 p-10">
+          <div className="text-center w-full lg:w-1/2">
             <div className="w-full">
               <img
                 className="w-full h-full"
@@ -96,10 +96,10 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-full lg:w-1/2">
             <div className="card w-full h-full shadow-2xl bg-base-100">
               <div className="text-center mt-5">
-                <h1 className="text-3xl font-sans font-bold">
+                <h1 className="text-2xl lg:text-3xl font-sans font-bold">
                   Please Register First
                 </h1>
               </div>

@@ -9,7 +9,9 @@ const AdminHome = () => {
         <title>Photography School |Admin Dashboard</title>
         <link rel="canonical" href="https://www.tacobell.com/" />
       </Helmet>
-      <h2>Welcome Admin {user?.displayName}</h2>
+      <h2 className="text-4xl font-sans font-bold">
+        Welcome Admin {user?.displayName}
+      </h2>
     </div>
   );
 };
