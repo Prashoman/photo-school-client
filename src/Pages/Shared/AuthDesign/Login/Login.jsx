@@ -74,6 +74,14 @@ const Login = () => {
               {error && (
                 <p className="text-red-500 text-center mt-5"> {error}</p>
               )}
+
+              <div className="border mx-6 border-gray my-3 text-center space-y-3">
+                <h1 className="text-2xl underline font-sans font-bold">
+                  Testing This Website
+                </h1>
+                <p>Admin Email : admin@gmail.com</p>
+                <p>Admin password : 123456A!</p>
+              </div>
               <form onSubmit={handleSubmit(handleLogin)} className="card-body">
                 <div className="form-control">
                   <label className="label">
